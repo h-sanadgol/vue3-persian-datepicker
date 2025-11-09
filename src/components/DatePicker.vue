@@ -517,6 +517,28 @@
       },
 
       /**
+       * minute Step
+       * @default "1"
+       * @type Number
+       * @desc 1. you can send the number of step for minute.
+       */
+      minuteStep: {
+        default: () => 1,
+        type: [Number] as PropType<number>,
+      },
+
+      /**
+       * hour Step
+       * @default "1"
+       * @type Number
+       * @desc 1. you can send the number of step for hour.
+       */
+      hourStep: {
+        default: () => 1,
+        type: [Number] as PropType<number>,
+      },
+
+      /**
        * submit when date selected or not
        * @default true
        * @type Boolean
@@ -727,6 +749,20 @@
           );
         }
         return column;
+      },
+      minuteStepCount(): number {
+        let step = 1;
+        if (Core.isNumber(this.minuteStep)) {
+          step = this.minuteStep as number;
+        }
+        return step;
+      },
+      hourStepCount(): number {
+        let step = 1;
+        if (Core.isNumber(this.hourStep)) {
+          step = this.hourStep as number;
+        }
+        return step;
       },
       monthDays(): MonthDays[][] {
         const months: MonthDays[][] = [];
@@ -1535,12 +1571,13 @@
         this.stopChangeTime();
         const maxAmount = unit == 'hour' ? 23 : 59;
         let currentAmount = time[unit]();
+        let step = unit == 'hour' ? this.hourStepCount : this.minuteStepCount;
         const changeTime = () => {
           if (operator == 'add') {
-            currentAmount++;
+            currentAmount = currentAmount + step;
             if (currentAmount > maxAmount) currentAmount = 0;
           } else {
-            currentAmount--;
+            currentAmount = currentAmount - step;
             if (currentAmount < 0) currentAmount = maxAmount;
           }
           if (!this.checkDate(time[unit](currentAmount), 'time')) {
@@ -1576,7 +1613,7 @@
           }
         };
         changeTime();
-        this.interval = setInterval(changeTime, 100);
+        this.interval = setInterval(changeTime, 300);
       },
       stopChangeTime() {
         clearInterval(this.interval!);

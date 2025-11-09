@@ -23,14 +23,14 @@
   "scripts": {
     "dev": "vite",
     "build:lib": "rollup -c",
-    "build:dts": "vue-tsc -d --emitDeclarationOnly -p src/components/DatePicker.vue --outDir dist",
     "build:nuxt": "unbuild",
-    "build": "rm -rf dist && pnpm build:nuxt && pnpm build:lib && pnpm build:dts",
     "test": "cypress run --component",
     "test:open": "cypress open --component",
     "lint": "eslint",
     "pretty": "prettier -w -u .",
-    "cz": "cz"
+    "cz": "cz",
+    "build:dts": "vue-tsc -d --emitDeclarationOnly -p tsconfig.build.json --outDir dist",
+    "build": "rimraf dist && pnpm build:nuxt && pnpm build:lib && pnpm build:dts"
   },
   "homepage": "https://alireza-ab.ir/datepicker",
   "bugs": {
@@ -72,6 +72,7 @@
   },
   "devDependencies": {
     "@cypress/vue": "^6.0.2",
+    "@eslint/js": "^9.39.1",
     "@vitejs/plugin-vue": "^6.0.1",
     "@vue/compiler-sfc": "^3.5.22",
     "@vue/eslint-config-prettier": "^10.2.0",
@@ -80,10 +81,12 @@
     "cypress": "^15.3.0",
     "cz-conventional-changelog": "^3.3.0",
     "eslint": "^9.36.0",
+    "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-prettier": "^5.5.4",
     "eslint-plugin-vue": "^10.5.0",
     "globals": "^16.4.0",
     "prettier": "^3.6.2",
+    "rimraf": "^6.1.0",
     "rollup-plugin-alias": "^2.2.0",
     "rollup-plugin-commonjs": "^10.1.0",
     "rollup-plugin-node-resolve": "^5.2.0",

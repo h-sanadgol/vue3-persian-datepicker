@@ -3,7 +3,12 @@
 </script>
 
 <template>
-  <DatePicker alt-name="rest"></DatePicker>
+  <DatePicker
+    alt-name="rest"
+    type="time"
+    :minute-step="10"
+    :hour-step="2"
+  ></DatePicker>
 </template>
 
 <style>

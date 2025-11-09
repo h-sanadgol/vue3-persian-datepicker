@@ -1,0 +1,11 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "strict": false,
+    "skipLibCheck": true,
+    "noEmitOnError": false,
+    "moduleResolution": "node16",
+    "isolatedModules": false
+  },
+  "exclude": ["node_modules", "src/nuxt/**", "tests", "cypress"]
+}
